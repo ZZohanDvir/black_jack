@@ -5,7 +5,7 @@ class Deck
   attr_accessor :cards
 
   FACES = [:2, :3, :4, :5, :6, :7, :8, :9, :10, :J, :Q, :K, :A]
-  SUITS = [:♦, :♠, :♣. :♥]
+  SUITS = [:<>, :^, :+. :<3]
 
   def initialize
     @cards = []
@@ -17,8 +17,9 @@ class Deck
     end
     @cards.shuffle
   end
-
-  def give_card
-    
+  
+  def give_card(player)
+    player.hand << @cards.shift
+  end
 
 end
