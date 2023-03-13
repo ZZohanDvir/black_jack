@@ -1,25 +1,33 @@
 # frozen-string-literal: true
 
-class Deck
+require_relative 'card'
+require_relative 'player'
 
+class Deck
   attr_accessor :cards
 
-  FACES = [:2, :3, :4, :5, :6, :7, :8, :9, :10, :J, :Q, :K, :A]
-  SUITS = [:<>, :^, :+. :<3]
+  FACES = [*(2..10), 'J', 'Q', 'K', 'A'].freeze
+  SUITS = ['♠', '♣', '♥', '♦'].freeze
 
   def initialize
     @cards = []
+    build
   end
 
   def build
-    SUITS.each do |suit|
-      FACES.each { |face| @cards << Card.new(face, suit) }
+    FACES.each do |face|
+      value = case face
+              when Integer
+                face
+              when 'A'
+                11
+              else
+                10
+                SUITS.each do |suit|
+                  @cards << Card.new(face, suit, value)
+                end
+              end
     end
-    @cards.shuffle
+    @cards.shuffle!
   end
-  
-  def give_card(player)
-    player.hand << @cards.shift
-  end
-
 end
