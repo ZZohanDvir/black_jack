@@ -11,7 +11,7 @@ class Card
   end
 
   def show
-    puts "#{face}#{suit}"
+    puts "#{@face}#{@suit}"
   end
 
   def hide

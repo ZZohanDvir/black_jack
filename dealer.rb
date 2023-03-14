@@ -3,12 +3,11 @@
 require_relative 'player'
 
 class Dealer < Player
-  def initialize
+  def initialize(name = 'Дилер')
     super
-    @name = 'Дилер'
   end
 
   def should_pass?
-    @hand.total >= 17
+    @total >= 17
   end
 end

@@ -1,20 +1,20 @@
 # frozen-string-literal: true
 
 require_relative 'card'
+require_relative 'deck'
 
 class Player
-  
-  BET = 10.freeze
-  BANK = 20.freeze
-  
-  attr_reader :name
-  attr_accessor :hand, :money, :hand_value
-  
+  BET = 10
+  BANK = 20
+
+  attr_reader :name, :total
+  attr_accessor :hand, :money
+
   def initialize(name)
     @name = name
     @hand = []
     @money = 100
-    @hand_value = 0
+    @total = 0
   end
 
   def bet
@@ -31,26 +31,36 @@ class Player
 
   def take_card(deck)
     @hand << deck.cards.shift
-    current_value
-    ace_to_lose?
+    current_total
   end
 
-  def enough?
-    @hand.size == 3
+  def show_cards
+    @hand.each { |card| puts "#{card.face}#{card.suit}" }
+  end
+
+  def hide_cards
+    @hand.each { |card| card.hide }
+  end
+
+  def out_of_money?
+    @money.zero?
+  end
+
+  def current_total
+    @total = 0
+    @hand.each do |card|
+      @total += card.value
+    end
+    ace_to_lose?
   end
 
   protected
 
   def ace?
-    @hand.map(:&face).include?('A')
-  end
-
-  def current_value
-    @hand_value = @hand.map(:&value).sum
+    @hand.each { |card| card.face }.include?('A')
   end
 
   def ace_to_lose?
-    @hand_value -=10 if ace? && @hand_value > 21
+    @total -= 10 if ace? && @total > 21
   end
-  
 end
