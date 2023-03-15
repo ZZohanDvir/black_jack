@@ -35,11 +35,11 @@ class Player
   end
 
   def show_cards
-    @hand.each { |card| puts "#{card.face}#{card.suit}" }
+    @hand.map { |card| card.show }
   end
 
   def hide_cards
-    @hand.each { |card| card.hide }
+    @hand.map { |card| card.hide }
   end
 
   def out_of_money?
@@ -48,16 +48,14 @@ class Player
 
   def current_total
     @total = 0
-    @hand.each do |card|
-      @total += card.value
-    end
+    @hand.map { |card| @total += card.value }
     ace_to_lose?
   end
 
   protected
 
   def ace?
-    @hand.each { |card| card.face }.include?('A')
+    @hand.map { |card| card.face == 'A' }
   end
 
   def ace_to_lose?

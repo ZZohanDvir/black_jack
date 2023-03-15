@@ -11,10 +11,10 @@ class Card
   end
 
   def show
-    puts "#{@face}#{@suit}"
+    "#{@face}#{@suit}"
   end
 
   def hide
-    puts '*'
+    '*'
   end
 end

@@ -110,7 +110,7 @@ class BlackJack
   def player_lost?
     if @players[1].total > 21
       true
-    elsif @players[0].total > @players[1].total && @players[0].total < 21
+    elsif @players[0].total > @players[1].total && @players[0].total <= 21
       true
     else
       false
@@ -120,7 +120,7 @@ class BlackJack
   def dealer_lost?
     if @players[0].total > 21
       true
-    elsif @players[1].total > @players[0].total && @players[1].total < 21
+    elsif @players[1].total > @players[0].total && @players[1].total <= 21
       true
     else
       false
