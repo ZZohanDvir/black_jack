@@ -8,13 +8,14 @@ class Player
   BANK = 20
 
   attr_reader :name, :total
-  attr_accessor :hand, :money
+  attr_accessor :hand, :money, :faces
 
   def initialize(name)
     @name = name
     @hand = []
     @money = 100
     @total = 0
+    @faces = []
   end
 
   def bet
@@ -55,7 +56,9 @@ class Player
   protected
 
   def ace?
-    @hand.map { |card| card.face == 'A' }
+    @faces = []
+    @hand.map { |card| @faces << card.face }
+    @faces.include?('A')
   end
 
   def ace_to_lose?
