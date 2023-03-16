@@ -36,7 +36,8 @@ class BlackJack
 
   def second_round
     puts '1 - сдать еще карту
-    2 - пасс'
+    2 - пасс
+    3 - открыть карты'
     choice = $stdin.gets.chomp.to_i
     case choice
     when 1
@@ -44,13 +45,15 @@ class BlackJack
       @players[0].take_card(@deck) unless @players[0].should_pass?
     when 2
       @players[0].take_card(@deck) unless @players[0].should_pass?
+    when 3
+      final
     end
-    puts "Ваши карты: #{@players[1].show_cards}. Сумма очков: #{@players[1].total}"
-    puts "Карты дилера: #{@players[0].show_cards}. Сумма очков: #{@players[0].total}"
     final
   end
 
   def final
+    puts "Ваши карты: #{@players[1].show_cards}. Сумма очков: #{@players[1].total}"
+    puts "Карты дилера: #{@players[0].show_cards}. Сумма очков: #{@players[0].total}"
     who_win?
     puts "Ваш остаток: #{@players[1].money}"
     puts "Остаток дилера: #{@players[0].money}"
